@@ -1,0 +1,13 @@
+Caffe has an ImageData layer which uses the row db config files I use to generate the DBs.
+This is so much simpler, and means we don't have to wait all day to generate new DBs.
+
+Caffe suggests, as makes sense, that there is a performance hit for this "..., or, when efficiency is not critical, from files on disk ..."
+Wish I knew this before...
+
+But, it'll be useful for passing arbitrary files through for extraction, so I'm going to add an "extract.prototxt" with the ususal find/replace flags for use with this. Unlike the train stuff, don't overwrite this prototxt. place the filled out version somewhere else.
+
+EXTRACT_CONFIG_PATH will be the path to the DB config file, which is an <fname> <label> pair. label isn't really important for extraction, but a value needs to be there.
+
+MEANFILE_PATH should/will be filled out ahead of time
+
+NOTE: These DB configs will be expected to have an abs/rel path to the data from the current working directory (no root/label file combo), so it will probably be best to make these configs use abs paths and then just toss it when extraction is done.

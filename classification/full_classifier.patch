@@ -1,0 +1,177 @@
+diff --git a/examples/cpp_classification/classification.cpp b/examples/cpp_classification/classification.cpp
+index 974662e..5694911 100644
+--- a/examples/cpp_classification/classification.cpp
++++ b/examples/cpp_classification/classification.cpp
+@@ -23,9 +23,11 @@ class Classifier {
+   Classifier(const string& model_file,
+              const string& trained_file,
+              const string& mean_file,
+-             const string& label_file);
++             const int cudaDevice);
+ 
+-  std::vector<Prediction> Classify(const cv::Mat& img, int N = 5);
++  std::vector<float> Classify(const cv::Mat& img);
++
++  const int get_num_classes();
+ 
+  private:
+   void SetMean(const string& mean_file);
+@@ -42,17 +44,22 @@ class Classifier {
+   cv::Size input_geometry_;
+   int num_channels_;
+   cv::Mat mean_;
+-  std::vector<string> labels_;
++  //std::vector<string> labels_;
+ };
+ 
++const int Classifier::get_num_classes() {
++  return net_->output_blobs()[0]->channels();
++}
++
+ Classifier::Classifier(const string& model_file,
+                        const string& trained_file,
+                        const string& mean_file,
+-                       const string& label_file) {
++                       const int cudaDevice) {
+ #ifdef CPU_ONLY
+   Caffe::set_mode(Caffe::CPU);
+ #else
+   Caffe::set_mode(Caffe::GPU);
++  Caffe::SetDevice(cudaDevice);
+ #endif
+ 
+   /* Load the network. */
+@@ -72,6 +79,7 @@ Classifier::Classifier(const string& model_file,
+   SetMean(mean_file);
+ 
+   /* Load labels. */
++  /*
+   std::ifstream labels(label_file.c_str());
+   CHECK(labels) << "Unable to open labels file " << label_file;
+   string line;
+@@ -81,14 +89,17 @@ Classifier::Classifier(const string& model_file,
+   Blob<float>* output_layer = net_->output_blobs()[0];
+   CHECK_EQ(labels_.size(), output_layer->channels())
+     << "Number of labels is different from the output layer dimension.";
++  */
+ }
+ 
++/*
+ static bool PairCompare(const std::pair<float, int>& lhs,
+                         const std::pair<float, int>& rhs) {
+   return lhs.first > rhs.first;
+ }
+-
++*/
+ /* Return the indices of the top N values of vector v. */
++/*
+ static std::vector<int> Argmax(const std::vector<float>& v, int N) {
+   std::vector<std::pair<float, int> > pairs;
+   for (size_t i = 0; i < v.size(); ++i)
+@@ -100,11 +111,13 @@ static std::vector<int> Argmax(const std::vector<float>& v, int N) {
+     result.push_back(pairs[i].second);
+   return result;
+ }
++*/
+ 
+-/* Return the top N predictions. */
+-std::vector<Prediction> Classifier::Classify(const cv::Mat& img, int N) {
++/* Return the predictions. */
++std::vector<float> Classifier::Classify(const cv::Mat& img) {
+   std::vector<float> output = Predict(img);
+ 
++  /*
+   N = std::min<int>(labels_.size(), N);
+   std::vector<int> maxN = Argmax(output, N);
+   std::vector<Prediction> predictions;
+@@ -112,8 +125,9 @@ std::vector<Prediction> Classifier::Classify(const cv::Mat& img, int N) {
+     int idx = maxN[i];
+     predictions.push_back(std::make_pair(labels_[idx], output[idx]));
+   }
++  */
+ 
+-  return predictions;
++  return output;
+ }
+ 
+ /* Load the mean file in binaryproto format. */
+@@ -227,10 +241,10 @@ void Classifier::Preprocess(const cv::Mat& img,
+ }
+ 
+ int main(int argc, char** argv) {
+-  if (argc != 6) {
++  if (argc != 7) {
+     std::cerr << "Usage: " << argv[0]
+               << " deploy.prototxt network.caffemodel"
+-              << " mean.binaryproto labels.txt img.jpg" << std::endl;
++              << " mean.binaryproto img_list.txt image_root cudaDevice" << std::endl;
+     return 1;
+   }
+ 
+@@ -239,24 +253,48 @@ int main(int argc, char** argv) {
+   string model_file   = argv[1];
+   string trained_file = argv[2];
+   string mean_file    = argv[3];
+-  string label_file   = argv[4];
+-  Classifier classifier(model_file, trained_file, mean_file, label_file);
+-
+-  string file = argv[5];
+-
+-  std::cout << "---------- Prediction for "
+-            << file << " ----------" << std::endl;
+-
+-  cv::Mat img = cv::imread(file, -1);
+-  CHECK(!img.empty()) << "Unable to decode image " << file;
+-  std::vector<Prediction> predictions = classifier.Classify(img);
+-
+-  /* Print the top N predictions. */
+-  for (size_t i = 0; i < predictions.size(); ++i) {
+-    Prediction p = predictions[i];
+-    std::cout << std::fixed << std::setprecision(4) << p.second << " - \""
+-              << p.first << "\"" << std::endl;
+-  }
++  string image_files  = argv[4];
++  string image_root   = argv[5];
++  int cudaDevice = atoi(argv[6]);
++  Classifier classifier(model_file, trained_file, mean_file, cudaDevice);
++
++  std::vector<std::pair<std::string,int>> images_to_process;
++   {
++     std::ifstream labels(image_files.c_str());
++     CHECK(labels) << "Unable to open images file " << image_files;
++     string line;
++     while (std::getline(labels, line)){
++         size_t pos = line.find(' '); // My data files are <image_path> <expected_label>
++         images_to_process.emplace_back(std::move(line.substr(0,pos)),stoi(line.substr(pos+1)));
++     }
++   }
++   // Output will be of the form:
++   // image,label,confidence,predicted_class,<N-D csv of label confidence in trained class order>
++   // where confidence and predicted_class is the predicted class with the highest confidence
++   // set fixed and precision now, shouldn't have to redo later??????????
++   std::cout<< std::fixed << std::setprecision(4) << "image,class,confidence,label";
++   for (int i = 0; i < classifier.get_num_classes(); ++i) {
++     std::cout<<","<<i;
++   }
++   std::cout<<std::endl;
++   for(auto &image_pair : images_to_process) {
++     cv::Mat img = cv::imread(image_root + image_pair.first, -1);
++     CHECK(!img.empty()) << "Unable to decode image " << image_pair.first;
++     std::vector<float> predictions = classifier.Classify(img);
++     float max_conf = -1.0f;
++     int max_idx = -1;
++     for (int i = 0; i < predictions.size();++i){
++       if (predictions[i] > max_conf){
++         max_idx = i;
++         max_conf = predictions[i];
++       }
++     }
++     std::cout<<image_pair.first<<','<<image_pair.second<<','<<max_conf<<','<<max_idx;
++     for (float conf : predictions) {
++       std::cout<<','<<conf;
++     }
++     std::cout<<std::endl;
++   }
+ }
+ #else
+ int main(int argc, char** argv) {

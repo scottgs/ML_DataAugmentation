@@ -1,0 +1,31 @@
+Source is the original caffe files straight from github, minus the model itself since it's 240MB
+
+get_caffe_model does literally that, just moved the link from the source readme into wget
+
+Locked/Unlocked refers to the convolutional net
+ Unlocked for finetuning of the feature extractors
+ Locked for only reinterpretation via IP and classifier layers
+
+Changed from source network:
+ Tossed readme
+ Added snaps folder 
+ Solver: 
+  Learning rate moved back a place to 0.001
+  Iteration count moved to 100000
+  Step size dropped to 32000
+  ** Network file is a relative path in the same directory **
+  ** Snapshot prefix is a relative path to the snaps directory **
+  ** Read: Execute caffe from within the directory **
+
+ Train_val:
+  New classifiers added, literally appended "_new" to it, changed output total and relinked everything
+  Meanfile set to MEANFILE_PATH for find/replace
+  Disabled mirroring, kept crop size at 224
+  Training data path set to TRAINING_DATA_PATH for find/replace
+  Testing data path set to TESTING_DATA_PATH for find/replace
+
+ Deploy:
+  Updated with new classifier name and output number
+  Set first dim to 1 because we only want/have 1 since we don't want random crops
+
+In addition to the above changes, the Locked network also sets convolution layer learning multipliers to zero

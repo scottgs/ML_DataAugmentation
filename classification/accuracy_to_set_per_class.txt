@@ -1,0 +1,1 @@
+tail -n +2 accuracy_data/original_unlocked_accuracy.csv | split -l 420 - STATCALC_ ; find . -type f -name STATCALC_\* -exec ./2015_GSRL_DeepLearning/data/scripts/classification/accuracy_to_perclass.sh {} \; ; rm STATCALC_a*
