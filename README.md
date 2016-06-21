@@ -16,7 +16,7 @@ Yi Yang and Shawn Newsam, "Bag-Of-Visual-Words and Spatial Extensions for Land-U
 
 ## Augmenting RSDataset
 [Get RSDataset](http://dsp.whu.edu.cn/cn/staff/yw/HRSscene.html)
-This link is dead as of now however the link worked about a month ago.
+(This link is dead as of now however the link worked about a month ago.)
 
 Acknowledge the data set creators:
 
