@@ -5,4 +5,6 @@
 
 Apply patch with `git apply full_classifier.patch`
 
-Runs fivefold data through the fivefold networks
+###Run classify data script
+
+Push fivefold data through the fivefold networks
