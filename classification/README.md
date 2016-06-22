@@ -1,7 +1,8 @@
 # Classify
 
 
-####Apply classifier patch to caffe
-Runs fivefold data through the fivefold networks
+###Apply classifier patch to caffe
 
-Requires patched caffenet classifier, apply patch with `git apply full_classifier.patch`
+Apply patch with `git apply full_classifier.patch`
+
+Runs fivefold data through the fivefold networks
