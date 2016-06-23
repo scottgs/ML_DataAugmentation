@@ -14,5 +14,6 @@ cp -r $1 resize_${1}
 cd resize_${1}
 for file in $(find . -type f); do
 	convert ${file} -resize 256x256 +repage ${file%.jpg}.tif
+	rm ${file}
 done
 #find . -type f -exec convert {} -resize 256x256 +repage -gravity center -crop 227x227+0+0 +repage {}.tif \;
