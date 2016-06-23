@@ -15,8 +15,7 @@ Don't forget to acknowledge data set creators:
 Yi Yang and Shawn Newsam, "Bag-Of-Visual-Words and Spatial Extensions for Land-Use Classification," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (ACM GIS), 2010. 
 
 ## Augmenting RSDataset
-[Get RSDataset](http://dsp.whu.edu.cn/cn/staff/yw/HRSscene.html)
-(This link is dead as of now however the link worked about a month ago.)
+This data set can be obtained from the authors of the following paper.
 
 Acknowledge the data set creators:
 
