@@ -12,4 +12,7 @@
       Here replace anyOfTheScripts with augmented, rotate, cropped, flips and any other 
       image dataset you wish to augment in place of UCMerced.
       
-      
+      If you want to use the RSDataset then you need to:
+        1. run clean_rsd.sh
+        2. run resize_images.sh
+        3. run generate_anyOfTheScripts.sh
