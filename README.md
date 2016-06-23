@@ -25,5 +25,9 @@ IEEE Geosci. Remote Sens. Lett. 8(1), 173176 (2011)
 
 ## Use the scripts:
 
+These scripts require caffe to use. [The guide to installing caffe can be found here](http://caffe.berkeleyvision.org/installation.html)
+
+See the readme files in the appropriate directories for directions on how to use those scripts.
+
 ### Structure of resulting cross-fo
 
