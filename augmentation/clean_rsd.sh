@@ -26,7 +26,11 @@ for file in $(find . -type f); do
 	mv $file ${file,,}
 done
 
-rm /home/richard/DataSets/RSDataset/bridge/bridge18.jpg
-rm /home/richard/DataSets/RSDataset/port/port02.jpg
-rm /home/richard/DataSets/RSDataset/port/port09.jpg
-rm /home/richard/DataSets/RSDataset/railwaystation/railwaystation31.jpg
+rm ./bridge/bridge18.jpg
+mv ./bridge/bridge51.jpg ./bridge/bridge18.jpg
+rm ./port/port02.jpg
+mv ./port/port51.jpg ./port/port02.jpg
+rm ./port/port09.jpg
+mv ./port/port52.jpg ./port/port09.jpg
+convert ./railwaystation/railwaystation31.jpg -crop 600x600+0+0 +repage ./railwaystation/railwaystation31.tif
+rm ./railwaystation/railwaystation31.jpg
