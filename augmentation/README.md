@@ -1,7 +1,7 @@
 ### Requirements
   1. Image Magick
   
-### Instructions
+### General Instructions
   1. Point the script to the dataset you want to augment.
       
       ```shell
@@ -12,6 +12,18 @@
       Here replace __<operation>__ with augmented, rotate, cropped, flips and any other 
       image dataset you wish to augment in place of UCMerced.
       
+### Operations 
+   1.  X
+
+   2.  Y
+   3.  Z
+
+### Producing 120x Augmentation of 2016 GRSL
+   1.  A
+   2.  B
+   3.  C
+  
+
 ### RSData Set Pre-processing
       If you want to use the RSDataset then you need to:
       1. run clean_rsd.sh
