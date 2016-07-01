@@ -6,7 +6,7 @@
       
       ```shell
       cd path/containing/dataset
-      ./generate_anyOfTheScripts UCMerced
+      ./generate_<operation> UCMerced
       ```
       
       Here replace anyOfTheScripts with augmented, rotate, cropped, flips and any other 
