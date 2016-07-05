@@ -9,7 +9,7 @@
       ./generate_<operation> UCMerced
       ```
       
-      Here replace __<operation>__ with augmented, rotate, cropped, flips and any other 
+      Here replace ```<operation>``` with augmented, rotate, cropped, flips and any other 
       image dataset you wish to augment in place of UCMerced.
       
 ### Operations 
