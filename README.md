@@ -28,5 +28,5 @@ These scripts require caffe to use. [The guide for installing caffe can be found
 
 See the readme files in the appropriate directories for directions on how to use those scripts.
 
-### Structure of resulting cross-fo
+
 
