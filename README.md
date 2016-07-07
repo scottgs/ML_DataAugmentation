@@ -24,9 +24,14 @@ IEEE Geosci. Remote Sens. Lett. 8(1), 173176 (2011)
 
 ## Use the scripts:
 
-These scripts require caffe to use. [The guide for installing caffe can be found here](http://caffe.berkeleyvision.org/installation.html)
+* These scripts require caffe to use. [The guide for installing caffe can be found here](http://caffe.berkeleyvision.org/installation.html)
 
-See the readme files in the appropriate directories for directions on how to use those scripts.
+* See the readme files in the appropriate directories for directions on how to use those scripts.
 
+* General workflow for using these scripts:
+    1. Augmentation Scripts
+    2. Fivefold Scripts
+    3. Classification Scripts 
+  
 
 
