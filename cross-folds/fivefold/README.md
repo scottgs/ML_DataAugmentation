@@ -17,13 +17,13 @@
   * Creates and executes fivefold networks
   
   1. ```path/to/fivefold_execute.sh <template_path> <weights> <plan_dir> <plan_identifier> <gpus> <finished_dst> <caffe_root>```
-  * ```<template_path>```: caffe templates i.e. network you would like to run (google and caffe are included in this git repo).
-  * ```<weights>```: path to weights you would like use to when you start training.
-  * ```<plan_dir>```: point this to the path where the ```fivefold_create.sh``` script created the databases
-  * ```<plan_identifier>```: prefix which tells the script which database plan to read
-  * ```<gpus>```: gpu you would like to use to run caffe goes here
-  * ```<finished_dst>```: this is where the fivefolds will be copied to once they are completed.
-  * ```<caffe_root>```: location of caffe
+   * ```<template_path>```: caffe templates i.e. network you would like to run (google and caffe are included in this git repo).
+   * ```<weights>```: path to weights you would like use to when you start training.
+   * ```<plan_dir>```: point this to the path where the ```fivefold_create.sh``` script created the databases
+   * ```<plan_identifier>```: prefix which tells the script which database plan to read
+   * ```<gpus>```: gpu you would like to use to run caffe goes here
+   * ```<finished_dst>```: this is where the fivefolds will be copied to once they are completed.
+   * ```<caffe_root>```: location of caffe
 
 ### Dry Run
   * Same directions as ```fivefold_execute.sh```, this script prints commands that would be used, useful for dividing or resuming work
