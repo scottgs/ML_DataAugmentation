@@ -21,3 +21,11 @@ Apply patch with `git apply full_classifier.patch`
     * ```<img_root>```: /path/to/image/set (UCMERCED, RSD, or whatever else).
     * ```<gpu>```: # indicating which gpu you would like the ```classify_data.sh``` script to use
     * ```<filename>```: this is used to create two files ```<filename>_accuracies.csv``` and ```<filename>_labels.csv```
+    * 
+###Description of other scripts:
+    1. accuracy_to_confusion.sh
+        * This script takes the .csv file created by ```classify_data.sh``` and outputs a confusion matrix which can be      piped to a .csv file.
+    2. accuray_to_perclass.sh
+        * This script takes the .csv file created by ```classify_data.sh```and outputs the class, number correct for each class and the total number of correct classifications.
+    3. reinterpret_data.sh
+        * This script reads the .csv file created by ```classify_data.sh``` and using a new cutoff (use a decimal ie 0.95 for 95% or 0 for argmax) and pipe this into a new .csv file and use the previous two scripts with it.
