@@ -5,8 +5,8 @@
   1. Point the script to the dataset you want to augment.
       
       ```shell
-      cd path/containing/dataset
-      ./generate_<operation> UCMerced
+      cd /location/of/ML_DataAugmentation
+      ./generate_<operation> /path/to/UCMerced
       ```
       
       Here replace ```<operation>``` with augmented, rotate, cropped, flips and any other 
