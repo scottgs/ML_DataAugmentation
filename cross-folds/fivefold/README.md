@@ -28,5 +28,5 @@
 ### Dry Run
   * Same directions as ```fivefold_execute.sh```, this script prints commands that would be used, useful for dividing or resuming work
 
- ### Generate files
+### Generate files
    * These scripts are used by the fivefold_plan script and are not meant to be ran by themselves.
