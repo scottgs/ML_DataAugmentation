@@ -1,13 +1,13 @@
-### Plan 
+### Plan
   * Generates a listing of files for fivefold execution in a text file to be read by fivefold.
-  
+
   1. ```/path/to/fivefold_plan.sh <src_dir> <append_str>```
     * ```<src_dir>```: source directory where the images are located
     * ```<append_str>```: string appended to the beginning of the plan
 
-### Create 
+### Create
   * Creates lmdb databases for fivefold execution
-  
+
   1. ```/path/to/fivefold_create.sh <identifier> <path_to_data> <path_to_caffe_root>```
     * ```<identifier>```: this is the name of the database and needs to be the same as the ```<append_str>``` used in the previous command.
     * ```<path_to_data>```: source directory where the images are located
@@ -15,7 +15,7 @@
 
 ### Execute
   * Creates and executes fivefold networks
-  
+
   1. ```path/to/fivefold_execute.sh <template_path> <weights> <plan_dir> <plan_identifier> <gpus> <finished_dst> <caffe_root>```
    * ```<template_path>```: caffe templates i.e. network you would like to run (google and caffe are included in this git repo).
    * ```<weights>```: path to weights you would like use to when you start training.
@@ -27,3 +27,6 @@
 
 ### Dry Run
   * Same directions as ```fivefold_execute.sh```, this script prints commands that would be used, useful for dividing or resuming work
+
+ ### Generate files
+   * These scripts are used by the fivefold_plan script and are not meant to be ran by themselves.
